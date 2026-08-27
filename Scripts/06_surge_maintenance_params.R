@@ -42,7 +42,7 @@ surge_params <- list(
 # 2. MAINTENANCE BUFFER (from equipment audit data, flat across levels)
 # ------------------------------------------------------------------------------
 
-device_data <- fread("C:/path/to/device_data.csv")
+device_data <- fread("C:/Users/phomw/OneDrive - Rice University/OneDrive/Documents/Rice360/Datasets/Contextual/device_data.csv")
 
 equipment_params <- device_data %>%
   mutate(

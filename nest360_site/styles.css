@@ -24,7 +24,7 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, "Calibri", "Segoe UI", Arial, sans-serif;
+  font-family: "EB Garamond", Garamond, Georgia, "Times New Roman", serif;
   background: var(--lightbg);
   color: var(--navy);
   line-height: 1.5;
@@ -180,7 +180,7 @@ main {
 .card {
   background: var(--white);
   border: 1px solid var(--border);
-  border-radius: 10px;
+  border-radius: 2px;
   padding: 1.6rem;
   margin-bottom: 1.4rem;
 }
@@ -406,45 +406,36 @@ summary {
 .considerations-list li:last-child { margin-bottom: 0; }
 
 /* ---------------------------------------------------------------------- */
-/* Device cards (Device Quantity Estimations hub page)                    */
+/* Device list (Device Quantity Estimations hub page)                     */
+/* Plain divided rows, not boxed/rounded tiles -- differentiation between */
+/* available and coming-soon items comes from the status label and text  */
+/* weight, not from colored accent borders or card chrome.                */
 /* ---------------------------------------------------------------------- */
 
-.device-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 1rem;
+.device-list {
+  border-top: 1px solid var(--border);
 }
 
-.device-card {
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 1.4rem;
-  background: var(--white);
+.device-list-item {
+  padding: 1.2rem 0;
+  border-bottom: 1px solid var(--border);
   display: flex;
   flex-direction: column;
-  gap: 0.6rem;
+  gap: 0.5rem;
 }
 
-.device-card.available {
-  border-top: 4px solid var(--teal-dark);
-}
+.device-list-item.coming-soon { opacity: 0.7; }
 
-.device-card.coming-soon {
-  border-top: 4px solid var(--border);
-  opacity: 0.75;
-}
-
-.device-card h3 {
+.device-list-item h3 {
   margin: 0;
   font-size: 1.1rem;
   color: var(--navy);
 }
 
-.device-card p {
+.device-list-item p {
   margin: 0;
   font-size: 0.9rem;
   color: var(--gray);
-  flex-grow: 1;
 }
 
 .device-status {
@@ -453,22 +444,13 @@ summary {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  padding: 0.2rem 0.6rem;
-  border-radius: 4px;
   width: fit-content;
 }
 
-.device-status.available {
-  background: var(--teal-light);
-  color: var(--teal-darker);
-}
+.device-status.available { color: var(--teal-darker); }
+.device-status.coming-soon { color: var(--gray); }
 
-.device-status.coming-soon {
-  background: var(--lightbg);
-  color: var(--gray);
-}
-
-.device-card .go-link {
+.device-list-item .go-link {
   text-decoration: none;
   font-weight: 700;
   color: var(--teal-dark);
