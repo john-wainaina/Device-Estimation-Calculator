@@ -4,297 +4,42 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CPAP Device Estimation Tool | NEST360</title>
-<style>
-  :root {
-    --navy: #004167;      /* exact color extracted from NEST360 logo wordmark */
-    --navy-dark: #002E48;
-    --teal: #279F9F;      /* exact color extracted from NEST360 logo ring (decorative use) */
-    --teal-dark: #1E8080; /* darkened for WCAG AA text/button contrast (4.71:1 on white) */
-    --teal-light: #E3F1F1;
-    --gray: #5B6470;
-    --lightbg: #F5F7F8;
-    --white: #FFFFFF;
-    --border: #E0E4E6;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    font-family: -apple-system, "Calibri", "Segoe UI", Arial, sans-serif;
-    background: var(--lightbg);
-    color: var(--navy);
-    line-height: 1.5;
-  }
-
-  header {
-    background: var(--navy);
-    color: var(--white);
-    padding: 1.6rem 1.5rem;
-  }
-
-  header .inner {
-    max-width: 900px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  /*
-    LOGO
-    -----------------
-    Points to assets/nest360-logo.png -- keep that file alongside this HTML
-    file (same relative path) when you host it. If the image fails to load
-    for any reason, a text wordmark fallback is shown automatically so the
-    header never looks broken.
-  */
-  #logo {
-    height: 36px;
-    width: auto;
-    display: block;
-  }
-
-  #logoFallback {
-    display: none;
-    font-family: -apple-system, "Calibri", Arial, sans-serif;
-    font-size: 1.3rem;
-    font-weight: 800;
-    letter-spacing: 0.02em;
-    color: var(--white);
-  }
-  #logoFallback .accent { color: var(--teal); }
-
-  header .titles h1 {
-    margin: 0 0 0.2rem 0;
-    font-size: 1.4rem;
-    font-weight: 700;
-  }
-
-  header .titles p {
-    margin: 0;
-    color: #CFE3EA;
-    font-size: 0.92rem;
-  }
-
-  main {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 1.8rem 1.5rem 3rem 1.5rem;
-  }
-
-  .card {
-    background: var(--white);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 1.6rem;
-    margin-bottom: 1.4rem;
-  }
-
-  .card h2 {
-    font-size: 1.15rem;
-    margin: 0 0 1rem 0;
-    border-bottom: 2px solid var(--teal);
-    padding-bottom: 0.5rem;
-  }
-  /* NOTE: border/underline use is decorative, not text -- --teal (true logo
-     color) is fine here. Text and interactive elements below use
-     --teal-dark for WCAG AA contrast on white. */
-
-  label {
-    display: block;
-    font-weight: 600;
-    font-size: 0.92rem;
-    margin-bottom: 0.35rem;
-    margin-top: 1rem;
-  }
-
-  label:first-child { margin-top: 0; }
-
-  input[type="number"], select {
-    width: 100%;
-    padding: 0.6rem 0.7rem;
-    font-size: 1rem;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: var(--white);
-    color: var(--navy);
-    font-family: inherit;
-  }
-
-  input[type="number"]:focus, select:focus {
-    outline: none;
-    border-color: var(--teal-dark);
-    box-shadow: 0 0 0 3px var(--teal-light);
-  }
-
-  .level-help {
-    font-size: 0.85rem;
-    color: var(--gray);
-    margin-top: 0.35rem;
-  }
-
-  button {
-    margin-top: 1.4rem;
-    width: 100%;
-    background: var(--teal-dark);
-    color: var(--white);
-    border: none;
-    border-radius: 6px;
-    padding: 0.75rem;
-    font-size: 1.02rem;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  button:hover { background: #176868; }
-
-  #results { display: none; }
-
-  .result-hero {
-    text-align: center;
-    padding: 1.4rem 0 1rem 0;
-    background: var(--teal-light);
-    border-radius: 8px;
-  }
-
-  .result-hero .n {
-    font-size: 3.2rem;
-    font-weight: 700;
-    color: var(--navy);
-    line-height: 1;
-  }
-
-  .result-hero .label {
-    color: var(--gray);
-    font-size: 0.95rem;
-    margin-top: 0.4rem;
-  }
-
-  .result-hero .ci {
-    margin-top: 0.7rem;
-    font-size: 1.05rem;
-    color: var(--teal-dark);
-    font-weight: 700;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
-    margin-top: 0.5rem;
-  }
-
-  th, td {
-    text-align: left;
-    padding: 0.5rem 0.6rem;
-    border-bottom: 1px solid var(--border);
-  }
-
-  th {
-    background: var(--navy);
-    color: var(--white);
-    font-weight: 600;
-  }
-
-  tr:last-child td { border-bottom: none; }
-
-  .breakdown-step {
-    display: flex;
-    justify-content: space-between;
-    padding: 0.5rem 0;
-    border-bottom: 1px dashed var(--border);
-    font-size: 0.92rem;
-  }
-
-  .breakdown-step:last-child { border-bottom: none; }
-
-  .breakdown-step .k { color: var(--gray); }
-  .breakdown-step .v { font-weight: 600; color: var(--navy); }
-
-  details {
-    margin-top: 1rem;
-  }
-
-  summary {
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.92rem;
-    color: var(--teal-dark);
-  }
-
-  .note {
-    font-size: 0.85rem;
-    color: var(--gray);
-    font-style: italic;
-    margin-top: 0.8rem;
-  }
-
-  footer {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 0 1.5rem 3rem 1.5rem;
-    font-size: 0.82rem;
-    color: var(--gray);
-  }
-
-  footer h3 {
-    font-size: 0.95rem;
-    color: var(--navy);
-    margin-bottom: 0.4rem;
-  }
-
-  .validation-banner {
-    background: #FFF6E5;
-    border: 1px solid #E8B84B;
-    border-left: 4px solid #B8790A;
-    color: #6B4A0A;
-    padding: 0.9rem 1.1rem;
-    border-radius: 6px;
-    margin-bottom: 1.4rem;
-    font-size: 0.9rem;
-  }
-
-  .validation-banner strong {
-    color: #6B4A0A;
-  }
-
-  .considerations-list {
-    margin: 0;
-    padding-left: 1.2rem;
-    color: var(--navy);
-    font-size: 0.92rem;
-    line-height: 1.6;
-  }
-
-  .considerations-list li {
-    margin-bottom: 0.5rem;
-  }
-
-  .considerations-list li:last-child {
-    margin-bottom: 0;
-  }
-</style>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon-180.png">
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-  <div class="inner">
-    <img id="logo" src="assets/nest360-logo.png" alt="NEST360 logo"
-         onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';" />
-    <div id="logoFallback">NEST<span class="accent">360</span></div>
-    <div class="titles">
-      <h1>CPAP Device Estimation Tool</h1>
-      <p>Estimate neonatal CPAP device need from monthly admissions and level of care</p>
-    </div>
+<header class="site-header">
+  <div class="site-header-inner">
+    <a href="index.html" class="brand">
+      <img id="logo" src="assets/nest360-logo.png" alt="NEST360 logo"
+           onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';" />
+      <div id="logoFallback">NEST<span class="accent">360</span></div>
+    </a>
+    <nav class="site-nav">
+      <a href="index.html">Home</a>
+      <a href="devices.html">Device Quantity Estimations</a>
+    </nav>
   </div>
 </header>
 
+<div class="page-title-strip">
+  <div class="inner">
+    <h1>CPAP Device Estimation Tool</h1>
+    <p>Estimate neonatal CPAP device need from monthly admissions and hospital level of care.</p>
+  </div>
+</div>
+<div class="breadcrumb"><a href="index.html">Home</a> / <a href="devices.html">Device Quantity Estimations</a> / CPAP</div>
+
 <main>
 
-  <div class="validation-banner">
-    <strong>Provisional tool — not yet validated.</strong> Parameters are empirically derived from historical data, but device estimates from this tool have not yet been validated against actual measured device need in real hospitals. Use alongside clinical judgment and local knowledge. Capacity to provide quality CPAP (HR, infrastructure, oxygen, monitoring, etc.) must be assessed before using the estimate to inform procurement decisions.</div>
-
+  <div class="advisory-note">
+    <div class="icon">!</div>
+    <div>
+      <strong>Provisional tool — not yet validated.</strong> Parameters are empirically derived from historical data, but device estimates from this tool have not yet been validated against actual measured device need in real hospitals. Use alongside clinical judgment and local knowledge. Capacity to provide quality CPAP (HR, infrastructure, oxygen, monitoring, etc.) must be assessed before using the estimate to inform procurement decisions.
+    </div>
+  </div>
 
   <div class="card">
     <h2>1. Enter hospital details</h2>
@@ -331,6 +76,13 @@
       <summary>Show parameters used</summary>
       <div id="paramsUsed" style="margin-top:0.8rem;"></div>
     </details>
+
+    <div class="formula-block">
+      <h3>Formula used</h3>
+      <p class="formula-expression">Base devices = ROUNDUP(Admissions &times; Eligibility &times; Length of treatment / 30 &times; Surge)</p>
+      <p class="formula-expression">Maintenance buffer = 0 if Base devices = 0, otherwise MAX(1, ROUNDUP(Base devices &times; Maintenance %))</p>
+      <p class="formula-expression">Devices needed = Base devices + Maintenance buffer</p>
+    </div>
 
     <p class="note">This estimate is based on empirically calibrated parameters and reflects average population-level patterns. Individual hospital case-mix may vary. The 95% confidence interval reflects statistical uncertainty in the underlying eligibility and length-of-treatment estimates.</p>
   </div>
@@ -369,7 +121,6 @@
   <div class="card">
     <h2>Important considerations before use</h2>
     <ul class="considerations-list">
-      <li>Capacity to provide quality CPAP (staffing, infrastructure, oxygen supply, monitoring, etc.) must be assessed directly at each hospital before this estimate is used to inform procurement.</li>
       <li>Level-of-care labels follow the WHO classification framework for consistency across countries. Actual on-the-ground capacity at a given hospital may differ from what its label implies, and should be verified rather than assumed.</li>
       <li>Estimates reflect current practice patterns, not a clinical guideline for ideal treatment duration.</li>
       <li>Device cleaning, disinfection, and preparation time between patients is not yet factored into these estimates, and would increase the effective number of devices needed beyond what is shown here.</li>
@@ -382,7 +133,7 @@
 <footer>
   <h3>Methodology</h3>
   <p>
-    Devices = ROUNDUP(Admissions &times; Eligibility rate &times; Length of treatment / 30 &times; Surge factor) + Maintenance buffer, where the maintenance buffer is rounded up separately and is always at least 1 whenever there is any real demand. Rounding the demand/surge portion and the maintenance buffer separately (rather than as one combined figure) ensures small hospitals still receive a meaningful equipment buffer, which a single combined rounding step could otherwise reduce to zero.
+    The formula above combines concurrent demand and surge into one rounded figure, then adds a maintenance buffer that is rounded separately and is always at least one device whenever there is any real demand. This avoids the buffer disappearing entirely for smaller hospitals, which a single combined rounding step would otherwise do, without introducing the larger inflation that comes from rounding every stage of the formula independently.
     Eligibility rate is calibrated per level of care using a hybrid approach that combines clinical criteria, empirically observed rates, and expert opinion, restricted to hospitals with plausible CPAP coverage (40-85%, or 50-85% for Level III).
     Length of treatment uses a competing-risks Restricted Mean Time Lost (RMTL) approach, which separates babies who died on CPAP from those successfully weaned, and treats undocumented discharge as censored rather than assuming an unrecorded wean date equals the discharge date.
   </p>
