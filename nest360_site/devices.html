@@ -10,29 +10,35 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="site-header-inner">
+<div class="topbar">
+  <div class="topbar-inner">
     <a href="index.html" class="brand">
       <img id="logo" src="assets/nest360-logo.png" alt="NEST360 logo"
            onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';" />
       <div id="logoFallback">NEST<span class="accent">360</span></div>
     </a>
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="devices.html" class="active" aria-current="page">Device Quantity Estimations</a>
-    </nav>
   </div>
-</header>
+</div>
 
-<div class="page-title-strip">
-  <div class="inner">
+<div class="hero">
+  <div class="hero-inner">
     <h1>Device Quantity Estimations</h1>
     <p>Choose a device below to estimate how many units a hospital may need.</p>
   </div>
 </div>
-<div class="breadcrumb"><a href="index.html">Home</a> / Device Quantity Estimations</div>
 
-<main>
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="devices.html" class="active" aria-current="page">Device Quantity Estimations</a>
+      <a href="cpap.html" class="nav-sub">CPAP</a>
+      <a href="mailto:info@nest360.org" class="contact-link">Contact</a>
+    </nav>
+  </aside>
+
+  <main>
 
   <div class="device-grid">
 
@@ -51,11 +57,14 @@
 
   </div>
 
-</main>
+  </main>
+
+</div>
 
 <footer>
-  <p>Built for the NEST360 Alliance.</p>
+  <p>Built for the NEST360 Alliance. Questions? Reach us at <a href="mailto:info@nest360.org">info@nest360.org</a>.</p>
 </footer>
+
 
 </body>
 </html>

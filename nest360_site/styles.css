@@ -33,84 +33,57 @@ body {
 a { color: var(--teal-dark); }
 
 /* ---------------------------------------------------------------------- */
-/* Site header / navigation (shared across all pages)                     */
+/* Top bar: plain white/light background so the logo (navy wordmark)      */
+/* stays fully visible and legible, rather than sitting on a navy/teal    */
+/* gradient where it loses contrast and disappears.                       */
 /* ---------------------------------------------------------------------- */
 
-.site-header {
-  background: var(--brand-gradient);
-  color: var(--white);
-  padding: 0.9rem 1.5rem;
+.topbar {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 1rem 1.5rem;
 }
 
-.site-header-inner {
-  max-width: 1000px;
+.topbar-inner {
+  max-width: 1100px;
   margin: 0 auto;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 0.8rem;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 0.7rem;
   text-decoration: none;
 }
 
 #logo {
-  height: 34px;
+  height: 56px;
   width: auto;
   display: block;
 }
 
 #logoFallback {
   display: none;
-  font-size: 1.2rem;
+  font-size: 1.6rem;
   font-weight: 800;
   letter-spacing: 0.02em;
-  color: var(--white);
+  color: var(--navy);
 }
-#logoFallback .accent { color: #8FDCDC; }
-
-.site-nav {
-  display: flex;
-  gap: 1.4rem;
-}
-
-@supports not (gap: 1rem) {
-  .site-nav a + a { margin-left: 1.4rem; }
-}
-
-.site-nav a {
-  color: #D9EEF2;
-  text-decoration: none;
-  font-size: 0.95rem;
-  font-weight: 600;
-  padding: 0.3rem 0;
-  border-bottom: 2px solid transparent;
-}
-
-.site-nav a:hover { color: var(--white); }
-
-.site-nav a.active {
-  color: var(--white);
-  border-bottom: 2px solid #8FDCDC;
-}
+#logoFallback .accent { color: var(--teal-dark); }
 
 /* ---------------------------------------------------------------------- */
-/* Hero (Home page, and page-title strips on other pages)                 */
+/* Hero banner                                                            */
 /* ---------------------------------------------------------------------- */
 
 .hero {
   background: var(--brand-gradient);
   color: var(--white);
-  padding: 3rem 1.5rem;
+  padding: 2.6rem 1.5rem;
 }
 
 .hero-inner {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
 }
 
@@ -127,48 +100,81 @@ a { color: var(--teal-dark); }
   max-width: 640px;
 }
 
-.page-title-strip {
-  background: var(--brand-gradient);
-  color: var(--white);
-  padding: 1.8rem 1.5rem;
-}
+/* ---------------------------------------------------------------------- */
+/* Layout: left-side vertical nav (with CPAP nested under Device Quantity */
+/* Estimations) + main content. Same nav block is reused verbatim on all  */
+/* three pages -- only the "active" class differs per page -- so the      */
+/* hierarchy and styling can never drift out of sync between pages.       */
+/* ---------------------------------------------------------------------- */
 
-.page-title-strip .inner {
-  max-width: 900px;
+.layout {
+  max-width: 1100px;
   margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 1.8rem 1.5rem 3rem 1.5rem;
 }
 
-.page-title-strip h1 {
-  margin: 0 0 0.3rem 0;
-  font-size: 1.5rem;
-  font-weight: 700;
+.sidebar {
+  flex: 0 0 240px;
+  position: sticky;
+  top: 1.5rem;
 }
 
-.page-title-strip p {
-  margin: 0;
-  color: #D9EEF2;
+.sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.sidebar nav a {
+  display: block;
+  padding: 0.65rem 0.9rem;
+  border-radius: 6px;
+  color: var(--navy);
+  text-decoration: none;
+  font-weight: 600;
   font-size: 0.95rem;
+  border-left: 3px solid transparent;
 }
 
-.breadcrumb {
-  max-width: 900px;
-  margin: 0.9rem auto 0 auto;
-  padding: 0 1.5rem;
-  font-size: 0.85rem;
-  color: var(--gray);
+.sidebar nav a:hover { background: var(--lightbg); }
+
+.sidebar nav a.active {
+  background: var(--teal-light);
+  color: var(--teal-darker);
+  border-left: 3px solid var(--teal-dark);
 }
 
-.breadcrumb a { text-decoration: none; }
-.breadcrumb a:hover { text-decoration: underline; }
+.sidebar nav a.nav-sub {
+  margin-left: 1rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.sidebar nav a.contact-link {
+  margin-top: 0.6rem;
+  border-top: 1px solid var(--border);
+  padding-top: 0.9rem;
+}
+
+@media (max-width: 700px) {
+  .layout { flex-direction: column; }
+  .sidebar { position: static; width: 100%; flex-basis: auto; }
+  .sidebar nav { flex-direction: row; flex-wrap: wrap; }
+  .sidebar nav a.nav-sub { margin-left: 0; }
+}
 
 /* ---------------------------------------------------------------------- */
 /* Layout                                                                  */
 /* ---------------------------------------------------------------------- */
 
 main {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 1.8rem 1.5rem 3rem 1.5rem;
+  flex: 1;
+  min-width: 0;
 }
 
 .card {
@@ -474,7 +480,7 @@ summary {
 /* ---------------------------------------------------------------------- */
 
 footer {
-  max-width: 900px;
+  max-width: 1100px;
   margin: 0 auto;
   padding: 0 1.5rem 3rem 1.5rem;
   font-size: 0.82rem;

@@ -10,29 +10,35 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="site-header-inner">
+<div class="topbar">
+  <div class="topbar-inner">
     <a href="index.html" class="brand">
       <img id="logo" src="assets/nest360-logo.png" alt="NEST360 logo"
            onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';" />
       <div id="logoFallback">NEST<span class="accent">360</span></div>
     </a>
-    <nav class="site-nav">
-      <a href="index.html">Home</a>
-      <a href="devices.html">Device Quantity Estimations</a>
-    </nav>
   </div>
-</header>
+</div>
 
-<div class="page-title-strip">
-  <div class="inner">
+<div class="hero">
+  <div class="hero-inner">
     <h1>CPAP Device Estimation Tool</h1>
     <p>Estimate neonatal CPAP device need from monthly admissions and hospital level of care.</p>
   </div>
 </div>
-<div class="breadcrumb"><a href="index.html">Home</a> / <a href="devices.html">Device Quantity Estimations</a> / CPAP</div>
 
-<main>
+<div class="layout">
+
+  <aside class="sidebar">
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="devices.html">Device Quantity Estimations</a>
+      <a href="cpap.html" class="nav-sub active" aria-current="page">CPAP</a>
+      <a href="mailto:info@nest360.org" class="contact-link">Contact</a>
+    </nav>
+  </aside>
+
+  <main>
 
   <div class="advisory-note">
     <div class="icon">!</div>
@@ -128,7 +134,9 @@
     </ul>
   </div>
 
-</main>
+  </main>
+
+</div>
 
 <footer>
   <h3>Methodology</h3>
@@ -137,7 +145,7 @@
     Eligibility rate is calibrated per level of care using a hybrid approach that combines clinical criteria, empirically observed rates, and expert opinion, restricted to hospitals with plausible CPAP coverage (40-85%, or 50-85% for Level III).
     Length of treatment uses a competing-risks Restricted Mean Time Lost (RMTL) approach, which separates babies who died on CPAP from those successfully weaned, and treats undocumented discharge as censored rather than assuming an unrecorded wean date equals the discharge date.
   </p>
-  <p style="margin-top:0.8rem;">Built for the NEST360 Alliance. Version 1.1.</p>
+  <p style="margin-top:0.8rem;">Built for the NEST360 Alliance. Version 1.1. Questions? Reach us at <a href="mailto:info@nest360.org">info@nest360.org</a>.</p>
 </footer>
 
 <script>

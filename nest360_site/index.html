@@ -10,19 +10,15 @@
 </head>
 <body>
 
-<header class="site-header">
-  <div class="site-header-inner">
+<div class="topbar">
+  <div class="topbar-inner">
     <a href="index.html" class="brand">
       <img id="logo" src="assets/nest360-logo.png" alt="NEST360 logo"
            onerror="this.style.display='none'; document.getElementById('logoFallback').style.display='block';" />
       <div id="logoFallback">NEST<span class="accent">360</span></div>
     </a>
-    <nav class="site-nav">
-      <a href="index.html" class="active" aria-current="page">Home</a>
-      <a href="devices.html">Device Quantity Estimations</a>
-    </nav>
   </div>
-</header>
+</div>
 
 <div class="hero">
   <div class="hero-inner">
@@ -31,26 +27,39 @@
   </div>
 </div>
 
-<main>
+<div class="layout">
 
-  <div class="card">
-    <h2>About NEST360</h2>
-    <p>NEST360 is an alliance working to end preventable newborn deaths by improving access to essential technologies and quality care for small and sick newborns in health facilities. The alliance supports a multi-country neonatal care improvement programme across Ethiopia, Kenya, Malawi, Nigeria, and Tanzania.</p>
-  </div>
+  <aside class="sidebar">
+    <nav>
+      <a href="index.html" class="active" aria-current="page">Home</a>
+      <a href="devices.html">Device Quantity Estimations</a>
+      <a href="cpap.html" class="nav-sub">CPAP</a>
+      <a href="mailto:info@nest360.org" class="contact-link">Contact</a>
+    </nav>
+  </aside>
 
-  <div class="card">
-    <h2>Device Quantity Estimation Tools</h2>
-    <p style="margin:0 0 1rem 0; color:var(--navy);">A core challenge for hospitals and programs is knowing how many units of a given medical device are actually needed to serve a hospital's admissions safely. This initiative builds simple, free calculators that estimate device quantity needs directly from empirical patient-level data, rather than generic assumptions.</p>
-    <p style="margin:0 0 1.2rem 0; color:var(--navy);">The first tool covers CPAP (Continuous Positive Airway Pressure) devices. Additional device estimators are planned for future releases.</p>
-    <a href="devices.html">
-      <button type="button">Explore Device Quantity Estimation Tools</button>
-    </a>
-  </div>
+  <main>
 
-</main>
+    <div class="card">
+      <h2>About NEST360</h2>
+      <p>NEST360 is an alliance working to end preventable newborn deaths by improving access to essential technologies and quality care for small and sick newborns in health facilities. The alliance supports a multi-country neonatal care improvement programme across Ethiopia, Kenya, Malawi, Nigeria, and Tanzania.</p>
+    </div>
+
+    <div class="card">
+      <h2>Device Quantity Estimation Tools</h2>
+      <p>A core challenge for hospitals and programs is knowing how many units of a given medical device are actually needed to serve a hospital's admissions safely. This initiative builds simple, free calculators that estimate device quantity needs directly from empirical patient-level data, rather than generic assumptions.</p>
+      <p>The first tool covers CPAP (Continuous Positive Airway Pressure) devices. Additional device estimators are planned for future releases.</p>
+      <a href="devices.html">
+        <button type="button">Explore Device Quantity Estimation Tools</button>
+      </a>
+    </div>
+
+  </main>
+
+</div>
 
 <footer>
-  <p>Built for the NEST360 Alliance.</p>
+  <p>Built for the NEST360 Alliance. Questions? Reach us at <a href="mailto:info@nest360.org">info@nest360.org</a>.</p>
 </footer>
 
 </body>
